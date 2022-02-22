@@ -57,6 +57,10 @@ Set to nil to disable styling the headlines."
 Set to nil to disable styling the time stamps."
   :type 'boolean)
 
+(defcustom org-modern-auxillary t
+  "Scale down auxillary information like properties drawers."
+  :type 'boolean)
+
 (defcustom org-modern-table t
   "Prettify tables."
   :type 'boolean)
@@ -197,6 +201,10 @@ Set to nil to disable the progress bar."
     (((background light)) :strike-through "gray70")
     (t :strike-through "gray30"))
   "Face used for horizontal ruler.")
+
+(defface org-modern-auxillary
+  '((t :height 0.5))
+  "Face used for auxillary information.")
 
 (defvar-local org-modern--keywords nil
   "List of font lock keywords.")
@@ -399,6 +407,10 @@ Set to nil to disable the progress bar."
       (when org-modern-checkbox
         '(("^[ \t]*\\(?:[-+*]\\|[0-9]+[.)]\\)[ \t]+\\(\\[[ X-]\\]\\)[ \t]"
            (0 (org-modern--checkbox)))))
+      (when org-modern-auxillary
+        '(("\\(^[ \t]*:properties:[ \t]*\n\\)\\(.\\|\n\\)*?\\(^[ \t]*:end:[ \t]*\n\\)"
+           (1 'org-modern-auxillary append)
+           (2 'org-modern-auxillary append))))
       (when (or org-modern-star org-modern-hide-stars)
         `(("^\\(\\**\\)\\(\\*\\) "
            ,@(and (not (eq org-modern-hide-stars t)) org-modern-star '((0 (org-modern--star))))
