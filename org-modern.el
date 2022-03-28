@@ -393,7 +393,6 @@ Set to nil to disable the indicator."
           (let ((a (match-beginning 0))
                 (b (match-end 0)))
             (cl-loop for i from a below b do
-                     (message "here %s a b" i a b)
                      (put-text-property i (1+ i) 'display
                                         (if (= 0 (mod i 2)) sp3 sp4)))))
 
