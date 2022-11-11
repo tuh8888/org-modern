@@ -29,18 +29,22 @@ DRANGE:    [2022-03-01]--[2022-04-01]
 DRANGE:    <2022-03-01>--<2022-04-01>
 TRANGE:    [2022-03-01 Tue 10:42-11:00]
 TIMESTAMP: [2022-02-21 Mon 13:00]
-DREPEATED:  <2022-02-26 Sat .+1d/2d +3d>
-TREPEATED:  <2022-02-26 Sat 10:00 .+1d/2d>
+DREPEATED: <2022-02-26 Sat .+1d/2d +3d>
+TREPEATED: <2022-02-26 Sat 10:00 .+1d/2d>
 
 * Blocks
 
 #+begin_src emacs-lisp
+  ;; Taken from the well-structured Emacs config by @oantolin.
+  ;; Take a look at https://github.com/oantolin/emacs-config!
   (defun command-of-the-day ()
     "Show the documentation for a random command."
     (interactive)
     (let ((commands))
-      (mapatoms (lambda (s) (when (commandp s) (push s commands))))
-      (describe-function (nth (random (length commands)) commands))))
+      (mapatoms (lambda (s)
+                  (when (commandp s) (push s commands))))
+      (describe-function
+       (nth (random (length commands)) commands))))
 #+end_src
 
 #+begin_src calc
@@ -91,3 +95,24 @@ TREPEATED:  <2022-02-26 Sat 10:00 .+1d/2d>
 | 2 |  4 |  8 | 16 |  1.4142 |     1.1892 |
 | 3 |  9 | 27 | 81 |  1.7321 |     1.3161 |
 |---+----+----+----+---------+------------|
+
+#+begin_example
+| a | b | c |
+| a | b | c |
+| a | b | c |
+#+end_example
+
+* Special Links
+
+Test numeric footnotes[fn:1] and named footnotes[fn:foo].
+
+<<This is an internal link>>
+
+<<<radio link>>>
+
+[[This is an internal link]]
+
+radio link
+
+[fn:1] This is footnote 1
+[fn:foo] This is the foonote
